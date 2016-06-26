@@ -1,17 +1,17 @@
 FROM ruby:2.3-alpine
 
 RUN apk add --no-cache --virtual .rundeps \
-    bash \
     git \
-		ca-certificates \
+    ca-certificates \
     mariadb-client-libs \
     libpq \
+    sqlite-libs \
     tzdata \
     libxml2-dev \
     libxslt-dev \
     openssl-dev \
     zlib-dev \
-		yaml-dev \
+    yaml-dev \
     nodejs
 
 ONBUILD ARG APP_HOME=/app
@@ -35,10 +35,12 @@ ONBUILD RUN apk add --no-cache --virtual .builddeps \
               libffi-dev \
               linux-headers \
               mysql-dev \
+              postgresql-dev \
+              sqlite-dev \
               make \
               ncurses-dev \
               procps \
-          		readline-dev \
-          		zlib-dev \
+              readline-dev \
+              zlib-dev \
          && bundle install -j 8 $BUNDLE_OPTIONS \
          && apk del .builddeps

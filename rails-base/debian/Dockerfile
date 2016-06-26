@@ -19,6 +19,7 @@ ONBUILD RUN apt-get update && \
             runDeps=' \
               libmysqlclient18 \
               libpq5 \
+              libsqlite3-0 \
               libxslt1.1 \
               libxml2 \
             ' && \
@@ -44,6 +45,7 @@ ONBUILD RUN apt-get update && \
               libxslt-dev \
               libmysqlclient-dev \
               libpq-dev \
+              libsqlite3-dev \
               libxml2-dev \
               make \
             ' && \
