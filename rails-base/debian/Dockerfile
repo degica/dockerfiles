@@ -10,6 +10,7 @@ RUN apt-get update \
 
 ONBUILD ARG APP_HOME=/app
 ONBUILD ARG BUNDLE_OPTIONS='--without development test'
+ONBUILD ARG SKIP_BUNDLE
 ONBUILD RUN mkdir -p $APP_HOME
 ONBUILD WORKDIR $APP_HOME
 ONBUILD COPY Gemfile $APP_HOME/
@@ -50,6 +51,7 @@ ONBUILD RUN apt-get update && \
               make \
             ' && \
             apt-get install -y --no-install-recommends $buildDeps && \
+            test "$SKIP_BUNDLE" = "yes" || \
             bundle install -j 8 $BUNDLE_OPTIONS && \
             apt-get purge -y --auto-remove $buildDeps && \
             apt-get install -y --no-install-recommends $runDeps && \
