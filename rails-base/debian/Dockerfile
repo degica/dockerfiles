@@ -52,7 +52,7 @@ ONBUILD RUN apt-get update && \
             ' && \
             apt-get install -y --no-install-recommends $buildDeps && \
             test "$SKIP_BUNDLE" = "yes" || \
-            bundle install -j 8 $BUNDLE_OPTIONS && \
-            apt-get purge -y --auto-remove $buildDeps && \
-            apt-get install -y --no-install-recommends $runDeps && \
-            rm -rf /var/lib/apt/lists/*
+            ( bundle install -j 8 $BUNDLE_OPTIONS && \
+              apt-get purge -y --auto-remove $buildDeps && \
+              apt-get install -y --no-install-recommends $runDeps && \
+              rm -rf /var/lib/apt/lists/* )
