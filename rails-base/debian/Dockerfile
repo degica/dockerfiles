@@ -1,6 +1,6 @@
 FROM ruby:2.3.1-slim
 
-RUN apt-get update \
+RUN apt-get clean && apt-get update \
    && apt-get install -y --no-install-recommends \
       file \
       git \
@@ -16,7 +16,7 @@ ONBUILD WORKDIR $APP_HOME
 ONBUILD COPY Gemfile $APP_HOME/
 ONBUILD COPY Gemfile.lock $APP_HOME/
 ONBUILD ADD vendor $APP_HOME/vendor
-ONBUILD RUN apt-get update && \
+ONBUILD RUN apt-get clean && apt-get update && \
             runDeps=' \
               libmysqlclient18 \
               libpq5 \
