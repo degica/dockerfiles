@@ -1,5 +1,6 @@
 FROM ruby:2.3.1-slim
 
+RUN sed -i "s/httpredir.debian.org/`curl -s -D - http://httpredir.debian.org/demo/debian/ | awk '/^Link:/ { print $2 }' | sed -e 's@<http://\(.*\)/debian/>;@\1@g'`/" /etc/apt/sources.list
 RUN apt-get clean && apt-get update \
    && apt-get install -y --no-install-recommends \
       file \
@@ -51,8 +52,8 @@ ONBUILD RUN apt-get clean && apt-get update && \
               make \
             ' && \
             apt-get install -y --no-install-recommends $buildDeps && \
-            test "$SKIP_BUNDLE" = "yes" || \
-            ( bundle install -j 8 $BUNDLE_OPTIONS && \
-              apt-get purge -y --auto-remove $buildDeps && \
-              apt-get install -y --no-install-recommends $runDeps && \
-              rm -rf /var/lib/apt/lists/* )
+            ( test "$SKIP_BUNDLE" = "yes" || \
+              ( bundle install -j 8 $BUNDLE_OPTIONS && \
+                apt-get purge -y --auto-remove $buildDeps && \
+                apt-get install -y --no-install-recommends $runDeps && \
+                rm -rf /var/lib/apt/lists/* ))
