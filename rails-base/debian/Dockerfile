@@ -12,11 +12,13 @@ RUN apt-get clean && apt-get update \
 ONBUILD ARG APP_HOME=/app
 ONBUILD ARG BUNDLE_OPTIONS='--without development test'
 ONBUILD ARG SKIP_BUNDLE
+
 ONBUILD RUN mkdir -p $APP_HOME
 ONBUILD WORKDIR $APP_HOME
 ONBUILD COPY Gemfile $APP_HOME/
 ONBUILD COPY Gemfile.lock $APP_HOME/
 ONBUILD ADD vendor $APP_HOME/vendor
+
 ONBUILD RUN apt-get clean && apt-get update && \
             runDeps=' \
               libmysqlclient18 \
@@ -30,26 +32,20 @@ ONBUILD RUN apt-get clean && apt-get update && \
               automake \
               g++ \
               gcc \
+              patch \
+              make \
               libbz2-dev \
               libc6-dev \
-              libevent-dev \
-              libgeoip-dev \
-              libglib2.0-dev \
-              libjpeg-dev \
               liblzma-dev \
               libmagickcore-dev \
               libmagickwand-dev \
-              libncurses-dev \
-              libpng-dev \
               libreadline-dev \
               libtool \
-              libwebp-dev \
               libxslt-dev \
               libmysqlclient-dev \
               libpq-dev \
               libsqlite3-dev \
               libxml2-dev \
-              make \
             ' && \
             apt-get install -y --no-install-recommends $buildDeps && \
             ( test "$SKIP_BUNDLE" = "yes" || \
