@@ -1,6 +1,5 @@
-FROM ruby:2.3.1-slim
+FROM ruby:2.4.0-slim
 
-RUN sed -i "s/httpredir.debian.org/`curl -s -D - http://httpredir.debian.org/demo/debian/ | awk '/^Link:/ { print $2 }' | sed -e 's@<http://\(.*\)/debian/>;@\1@g'`/" /etc/apt/sources.list
 RUN apt-get clean && apt-get update \
    && apt-get install -y --no-install-recommends \
       file \
@@ -9,11 +8,13 @@ RUN apt-get clean && apt-get update \
    && rm -rf /var/lib/apt/lists/* \
    && ln -s /usr/bin/nodejs /usr/bin/node
 
+ONBUILD ARG UID=1000
 ONBUILD ARG APP_HOME=/app
 ONBUILD ARG BUNDLE_OPTIONS='--without development test'
 ONBUILD ARG SKIP_BUNDLE
 
-ONBUILD RUN mkdir -p $APP_HOME
+ONBUILD RUN useradd --user-group --uid $UID app
+ONBUILD RUN mkdir -p $APP_HOME && chown -R app:app $APP_HOME
 ONBUILD WORKDIR $APP_HOME
 ONBUILD COPY Gemfile $APP_HOME/
 ONBUILD COPY Gemfile.lock $APP_HOME/

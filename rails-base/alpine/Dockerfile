@@ -1,4 +1,4 @@
-FROM ruby:2.3-alpine
+FROM ruby:2.4-alpine
 
 RUN apk add --no-cache --virtual .rundeps \
     git \
@@ -14,14 +14,18 @@ RUN apk add --no-cache --virtual .rundeps \
     yaml-dev \
     nodejs
 
+ONBUILD ARG UID=1000
 ONBUILD ARG APP_HOME=/app
 ONBUILD ARG BUNDLE_OPTIONS='--without development test'
-ONBUILD RUN mkdir -p $APP_HOME
-ONBUILD WORKDIR $APP_HOME
+ONBUILD ARG SKIP_BUNDLE
 
+ONBUILD RUN adduser -D -u $UID app
+ONBUILD RUN mkdir -p $APP_HOME && chown -R app:app $APP_HOME
+ONBUILD WORKDIR $APP_HOME
 ONBUILD COPY Gemfile $APP_HOME/
 ONBUILD COPY Gemfile.lock $APP_HOME/
 ONBUILD ADD vendor $APP_HOME/vendor
+
 ONBUILD RUN apk add --no-cache --virtual .builddeps \
               autoconf \
               bzip2-dev \
@@ -42,5 +46,5 @@ ONBUILD RUN apk add --no-cache --virtual .builddeps \
               procps \
               readline-dev \
               zlib-dev \
-         && bundle install -j 8 $BUNDLE_OPTIONS \
-         && apk del .builddeps
+         && ( test "$SKIP_BUNDLE" = "yes" \
+            || ( bundle install $BUNDLE_OPTIONS && apk del .builddeps ))
