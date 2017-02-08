@@ -13,7 +13,7 @@ ONBUILD ARG APP_HOME=/app
 ONBUILD ARG BUNDLE_OPTIONS='--without development test'
 ONBUILD ARG SKIP_BUNDLE
 
-ONBUILD RUN useradd --user-group --uid $UID app
+ONBUILD RUN useradd --user-group --uid $UID --create-home app
 ONBUILD RUN mkdir -p $APP_HOME && chown -R app:app $APP_HOME
 ONBUILD WORKDIR $APP_HOME
 ONBUILD COPY Gemfile $APP_HOME/
