@@ -7,11 +7,12 @@ RUN apk add --no-cache --virtual .rundeps \
     libpq \
     sqlite-libs \
     tzdata \
-    libxml2-dev \
-    libxslt-dev \
-    openssl-dev \
-    zlib-dev \
-    yaml-dev \
+    libxml2 \
+    libxslt \
+    openssl \
+    zlib \
+    yaml \
+    libcurl \
     nodejs
 
 ONBUILD ARG UID=1000
@@ -26,6 +27,7 @@ ONBUILD COPY Gemfile $APP_HOME/
 ONBUILD COPY Gemfile.lock $APP_HOME/
 ONBUILD ADD vendor $APP_HOME/vendor
 
+ONBUILD RUN apk add --no-cache --virtual .rundeps
 ONBUILD RUN apk add --no-cache --virtual .builddeps \
               autoconf \
               bzip2-dev \
@@ -41,6 +43,12 @@ ONBUILD RUN apk add --no-cache --virtual .builddeps \
               mysql-dev \
               postgresql-dev \
               sqlite-dev \
+              libxml2-dev \
+              libxslt-dev \
+              openssl-dev \
+              zlib-dev \
+              yaml-dev \
+              curl-dev \
               make \
               ncurses-dev \
               procps \

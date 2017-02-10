@@ -27,6 +27,7 @@ ONBUILD RUN apt-get clean && apt-get update && \
               libsqlite3-0 \
               libxslt1.1 \
               libxml2 \
+              libcurl3 \
             ' && \
             buildDeps=' \
               autoconf \
@@ -47,6 +48,7 @@ ONBUILD RUN apt-get clean && apt-get update && \
               libpq-dev \
               libsqlite3-dev \
               libxml2-dev \
+              libcurl3 \
             ' && \
             apt-get install -y --no-install-recommends $buildDeps && \
             ( test "$SKIP_BUNDLE" = "yes" || \
