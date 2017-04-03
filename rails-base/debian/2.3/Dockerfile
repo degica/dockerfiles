@@ -1,4 +1,4 @@
-FROM ruby:2.3.3-slim
+FROM ruby:2.3.4-slim
 
 RUN apt-get clean && apt-get update \
    && apt-get install -y --no-install-recommends \
