@@ -4,9 +4,12 @@ RUN apt-get clean && apt-get update \
    && apt-get install -y --no-install-recommends \
       file \
       git \
-      nodejs \
-   && rm -rf /var/lib/apt/lists/* \
-   && ln -s /usr/bin/nodejs /usr/bin/node
+      curl \
+   && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+   && apt-get install nodejs \
+   && rm -rf /var/lib/apt/lists/*
 
 ONBUILD ARG UID=1000
 ONBUILD ARG APP_HOME=/app
