@@ -1,4 +1,4 @@
-FROM ruby:2.5.0-slim
+FROM ruby:2.5.1-slim
 
 RUN apt-get clean && apt-get update \
    && apt-get install -y --no-install-recommends \
