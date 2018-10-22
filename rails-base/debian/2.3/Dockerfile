@@ -1,4 +1,4 @@
-FROM ruby:2.3.5-slim
+FROM ruby:2.3.8-slim-jessie
 
 RUN apt-get clean && apt-get update \
    && apt-get install -y --no-install-recommends \
