@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y gnupg && curl -sL https://deb.nodesourc
    && apt-get install -y nodejs \
    && rm -rf /var/lib/apt/lists/*
 
+ENV PATH=/app/bin:$PATH
 
 ONBUILD ARG UID=1000
 ONBUILD ARG APP_HOME=/app

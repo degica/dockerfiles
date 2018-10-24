@@ -11,6 +11,8 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
    && apt-get install nodejs \
    && rm -rf /var/lib/apt/lists/*
 
+ENV PATH=/app/bin:$PATH
+
 ONBUILD ARG UID=1000
 ONBUILD ARG APP_HOME=/app
 ONBUILD ARG BUNDLE_OPTIONS='--without development test'
