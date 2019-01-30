@@ -57,7 +57,5 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
     apt-get -y install google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
 
-RUN gem install spring
-
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
