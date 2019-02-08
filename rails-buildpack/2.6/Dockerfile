@@ -1,4 +1,4 @@
-FROM ruby:2.6.0
+FROM ruby:2.6.1
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
@@ -59,3 +59,4 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
+
