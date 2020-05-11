@@ -10,6 +10,7 @@ RUN apt-get update \
       automake \
       default-libmysqlclient-dev \
       default-mysql-client \
+      gettext \
       g++ \
       gcc \
       gnupg \
@@ -39,6 +40,12 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
    && apt-get install -y nodejs \
    && rm -rf /var/lib/apt/lists/*
 RUN npm install -g yarn
+
+RUN wget https://github.com/git/git/archive/v2.26.2.tar.gz -O git.tar.gz \
+ && tar xvf git.tar.gz \
+ && cd git-2.26.2 && make prefix=/usr/local -j4 install \
+ && cd .. && rm git.tar.gz && rm -rf git-2.26.2 \
+ git --version
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
