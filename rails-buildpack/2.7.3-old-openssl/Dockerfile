@@ -46,5 +46,3 @@ RUN dpkg --install 'openssl_1.1.0l-1~deb9u3_amd64.deb'
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
-
-
