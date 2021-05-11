@@ -40,9 +40,5 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
    && rm -rf /var/lib/apt/lists/*
 RUN npm install -g yarn
 
-# Install old openssl (we need to contact some old bank services with bad security...)
-RUN wget 'https://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.1.0l-1~deb9u3_amd64.deb'
-RUN dpkg --install 'openssl_1.1.0l-1~deb9u3_amd64.deb'
-
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
