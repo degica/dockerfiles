@@ -1,4 +1,4 @@
-FROM ruby:2.7.2
+FROM ruby:2.7.3
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
@@ -35,12 +35,10 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # Install Node JS
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
    && apt-get install -y nodejs \
    && rm -rf /var/lib/apt/lists/*
 RUN npm install -g yarn
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
-
-
