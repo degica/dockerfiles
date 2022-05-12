@@ -8,6 +8,8 @@ jobs:
           - '2.6.5-stretch'
           - '2.7'
           - '2.7.3'
+          - '3.0'
+          - '3.1'
     container:
       image: docker:git
       env:
