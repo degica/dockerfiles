@@ -41,5 +41,5 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
 RUN npm install -g yarn
 
 ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8i
+ENV LC_ALL C.UTF-8
 
