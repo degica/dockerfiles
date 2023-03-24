@@ -8,6 +8,8 @@ jobs:
             tag: "4.7.1"
           - image: "selenium/standalone-chrome-debug"
             tag: "3.141.59"
+          - image: "degicigel/echo"
+            tag: "1.0"
     container:
       image: docker:git
       env:
