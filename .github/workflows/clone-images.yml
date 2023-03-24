@@ -1,0 +1,51 @@
+name: clone-images
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - image: "selenium/standalone-chrome"
+            tag: "4.7.1"
+          - image: "selenium/standalone-chrome-debug"
+            tag: "3.141.59"
+          - image: "degicigel/echo"
+            tag: "1.0"
+    container:
+      image: docker:git
+      env:
+        ECR_DOCKER_REPOSITORY: public.ecr.aws/degica
+        DOCKER_BUILDKIT: '1'
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: prepare
+      run: |-
+        apk add --no-cache python3 py3-pip
+        pip3 install --upgrade pip
+        pip3 install awscli
+    - name: workaround git security
+      run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+    - uses: actions/checkout@v3
+    - name: setup
+      run: git submodule update --init
+    - name: pull_and_push
+      run: |-
+        DOCKERHUB_IMAGE="${{ matrix.image }}"
+        ORIGINAL_TAG="${{ matrix.tag }}"
+        NEW_IMAGE=`echo "${{ matrix.image }}" | sed 's/\//-/'`
+        if [[ ${GITHUB_REF##*/} == 'master' ]]; then
+            NEW_TAG=$ORIGINAL_TAG
+        else
+            NEW_TAG=test-${GITHUB_REF##*/}-$ORIGINAL_TAG # branch name for dev usecases
+        fi
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/degica
+        docker pull $DOCKERHUB_IMAGE:$ORIGINAL_TAG
+        docker tag $DOCKERHUB_IMAGE:$ORIGINAL_TAG $ECR_DOCKER_REPOSITORY/$NEW_IMAGE:$NEW_TAG
+        docker push $ECR_DOCKER_REPOSITORY/$NEW_IMAGE:$NEW_TAG
+        echo "$ECR_DOCKER_REPOSITORY/$NEW_IMAGE:$NEW_TAG pushed"
+'on':
+  push:
+    branches:
+    - '*'
