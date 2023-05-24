@@ -2,6 +2,7 @@ name: build-rails-base
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         tag:
           - debian/2.5
