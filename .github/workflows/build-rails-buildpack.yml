@@ -2,16 +2,16 @@ name: build-rails-buildpack
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         tag:
-          - '2.6'
-          - '2.6.5-stretch'
           - '2.7'
           - '2.7.3'
           - '2.7.5'
           - '2.7.7'
           - '3.0'
           - '3.1'
+          - '3.1.4'
           - '3.2.1'
           - '3.2.2'
     container:

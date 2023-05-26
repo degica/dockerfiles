@@ -2,9 +2,10 @@ name: build-rails-base
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         tag:
-          - debian/2.5
+          - debian/3.2
     container:
       image: docker:git
       env:
