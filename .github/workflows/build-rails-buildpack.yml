@@ -4,16 +4,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tag:
-          - '2.7'
-          - '2.7.3'
-          - '2.7.5'
-          - '2.7.7'
-          - '3.0'
-          - '3.1'
-          - '3.1.4'
-          - '3.2.1'
-          - '3.2.2'
+        include:
+          - ruby: '3.1.4'
+            folder: '3.1.x' # buster
+            tag: '3.1.4@sha256:18d450c9a5c573b2eeedc04cccf2d69a778b12d7e5f0b9caedf8b88abd7701eb'
+          - ruby: '3.2.1'
+            folder: '3.1.x' # buster
+            tag: '3.2.1@sha256:96a985d0ef955b77f3ecff795a7294629e2b8e0c12644c5b73ed817845f11919'
+          - ruby: '3.2.2'
+            folder: '3.1.x' # bullseye
+            tag: '3.2.2@sha256:139ee8e0f51fdd5d4b291d0755287e4ef3b9e58a0a78cb054e9a9c2a68a1daa6'
     container:
       image: docker:git
       env:
@@ -22,7 +22,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
     - name: prepare
       run: |-
@@ -36,14 +36,14 @@ jobs:
       run: git submodule update --init
     - name: build_and_push
       run: |-
-        cd rails-buildpack/${{ matrix.tag }}
+        cd rails-buildpack/${{ matrix.folder }}
         if [[ ${GITHUB_REF##*/} == 'master' ]]; then
-            IMAGE_TAG=${{ matrix.tag }}
+            IMAGE_TAG=${{ matrix.ruby }}
         else
-            IMAGE_TAG=test-${GITHUB_REF##*/}-${{ matrix.tag }} # branch name for dev usecases
+            IMAGE_TAG=test-${GITHUB_REF##*/}-${{ matrix.ruby }} # branch name for dev usecases
         fi
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/degica
-        docker build . -t $DOCKER_REPOSITORY:$IMAGE_TAG --build-arg git_revision=$IMAGE_TAG --pull
+        docker build . -t $DOCKER_REPOSITORY:$IMAGE_TAG --build-arg RUBY_TAG=${{ matrix.tag }} --pull
         docker images
         docker push $DOCKER_REPOSITORY:$IMAGE_TAG
         docker tag $DOCKER_REPOSITORY:$IMAGE_TAG $DOCKER_REPOSITORY:latest
