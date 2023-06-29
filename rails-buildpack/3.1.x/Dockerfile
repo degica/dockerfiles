@@ -1,4 +1,4 @@
-FROM ruby:3.2.2
+FROM ruby:${RUBY_TAG}
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
