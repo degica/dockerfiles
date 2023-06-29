@@ -1,4 +1,5 @@
-FROM ruby:${RUBY_TAG}
+ARG RUBY_TAG=latest
+FROM public.ecr.aws/docker/library/ruby:${RUBY_TAG}
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
