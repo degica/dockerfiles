@@ -14,6 +14,9 @@ jobs:
           - ruby: '3.2.2'
             folder: '3.1.x' # bullseye
             tag: '3.2.2@sha256:139ee8e0f51fdd5d4b291d0755287e4ef3b9e58a0a78cb054e9a9c2a68a1daa6'
+          - ruby: '3.3.0-preview1'
+            folder: '3.1.x' # bookworm
+            tag: '3.3.0-preview1@sha256:4eb0a0d89cac283399a31ab7c690e91e39de9eb836452ef48bc6f9b30f61854d'
     container:
       image: docker:git
       env:
