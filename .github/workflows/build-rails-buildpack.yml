@@ -14,6 +14,9 @@ jobs:
           - ruby: '3.2.2'
             folder: '3.1.x' # bullseye
             tag: '3.2.2@sha256:139ee8e0f51fdd5d4b291d0755287e4ef3b9e58a0a78cb054e9a9c2a68a1daa6'
+          - ruby: '3.2.3'
+            folder: '3.1.x' # bookworm
+            tag: '3.2.3@sha256:5590025acebb13cacd5a5a4e5b0733c18d841318b8b788996bb88ce1fc64c565'
           - ruby: '3.3.0-preview1'
             folder: '3.1.x' # bookworm
             tag: '3.3.0-preview1@sha256:4eb0a0d89cac283399a31ab7c690e91e39de9eb836452ef48bc6f9b30f61854d'
@@ -30,8 +33,8 @@ jobs:
     - name: prepare
       run: |-
         apk add --no-cache python3 py3-pip
-        pip3 install --upgrade pip
-        pip3 install awscli
+        pip3 install --break-system-packages --upgrade pip
+        pip3 install --break-system-packages awscli
     - name: workaround git security
       run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
     - uses: actions/checkout@v3
