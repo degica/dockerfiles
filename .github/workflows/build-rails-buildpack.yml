@@ -17,6 +17,9 @@ jobs:
           - ruby: '3.2.3'
             folder: '3.1.x' # bookworm
             tag: '3.2.3@sha256:5590025acebb13cacd5a5a4e5b0733c18d841318b8b788996bb88ce1fc64c565'
+          - ruby: '3.2.4'
+            folder: '3.1.x' # bookworm for linux/amd64
+            tag: '3.2.4@sha256:cf386d39f6a0fd0431a02bd1bb4acfa90673f763137ecb829875f9a3d9c26c5a'
           - ruby: '3.3.0-preview1'
             folder: '3.1.x' # bookworm
             tag: '3.3.0-preview1@sha256:4eb0a0d89cac283399a31ab7c690e91e39de9eb836452ef48bc6f9b30f61854d'
