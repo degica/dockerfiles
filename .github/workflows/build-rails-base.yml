@@ -17,6 +17,9 @@ jobs:
           - ruby: '3.2.3'
             folder: '3.1.x' # slim bookworm
             tag: '3.2.3-slim@sha256:7bd0053d5820b233c060775c8fe21d25a9f3ee1ae4fb04bc8fe7887f9c44a2f3'
+          - ruby: '3.2.4'
+            folder: '3.1.x' # slim bookworm for linux/amd64
+            tag: '3.2.4-slim@sha256:3752526bb16284b5c8d5e45f2f83bae175e92cace720859d9e04700530392aa2'
     container:
       image: docker:git
       env:
