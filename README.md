@@ -1,9 +1,43 @@
-# Rails buildpack
+Dockerfiles
+-----------
 
-rails-buildpack image includes common dependencies required for a rails application.
+This repository is used to automate building and stashing specific versions of dependencies that our applications rely on. This prevents sudden changes such as
+
+- changes of the base image from bookworm to buster
+- supply chain vulnerabilities
+
+that create unexpected breakages in our applications.
+
+# rails-base
+
+rails-base contains common dependencies that our applications use. You can use `public.ecr.aws/degica/rails-base:<version>` to build your rails application.
+
+## Older base images
+
+Here is a list of base images with older versions of Ruby:
+
+```ruby
+public.ecr.aws/degica/rails-buildpack:2.7
+public.ecr.aws/degica/rails-buildpack:2.7.3
+public.ecr.aws/degica/rails-buildpack:2.7.5
+public.ecr.aws/degica/rails-buildpack:2.7.7
+public.ecr.aws/degica/rails-buildpack:3.0
+public.ecr.aws/degica/rails-buildpack:3.1
+public.ecr.aws/degica/rails-buildpack:3.1.4
+public.ecr.aws/degica/rails-buildpack:3.2.1
+public.ecr.aws/degica/rails-buildpack:3.2.2
+public.ecr.aws/degica/rails-buildpack:3.2.3
+public.ecr.aws/degica/rails-buildpack:3.2.4
+public.ecr.aws/degica/rails-buildpack:3.3.0
+```
+
+
+# rails-buildpack
+
+rails-buildpack image includes common dependencies required to build a rails application.
 You can use `rails-buildpack` for your CI or builder of a multi-stage build.
 
-# Older buildpacks
+## Older buildpacks
 
 Here is a list of buildpacks with older versions of Ruby:
 
@@ -19,11 +53,12 @@ public.ecr.aws/degica/rails-buildpack:3.2.1
 public.ecr.aws/degica/rails-buildpack:3.2.2
 public.ecr.aws/degica/rails-buildpack:3.2.3
 public.ecr.aws/degica/rails-buildpack:3.2.4
+public.ecr.aws/degica/rails-buildpack:3.3.0
 ```
 
 Additional older buildpacks can be found at https://gallery.ecr.aws/degica/rails-buildpack
 
-## multi-stage example
+# Multi-stage example build
 
 ```
 FROM degica/rails-buildpack:2.6 AS builder
