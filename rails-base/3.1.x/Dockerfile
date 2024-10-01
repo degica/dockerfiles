@@ -23,6 +23,7 @@ RUN apt-get update \
       default-libmysqlclient-dev \
       libxslt1.1 \
       libxml2 \
+      libcurl4-openssl-dev \
  && curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
  && apt-get update \
  && apt-get install -y --no-install-recommends nodejs \
