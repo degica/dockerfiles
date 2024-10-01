@@ -6,6 +6,8 @@ jobs:
         include:
           - image: "selenium/standalone-chrome"
             tag: "4.7.1"
+          - image: "selenium/standalone-chrome"
+            tag: "4.25.0"
           - image: "selenium/standalone-chrome-debug"
             tag: "3.141.59"
           - image: "degicigel/echo"
