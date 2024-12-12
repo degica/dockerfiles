@@ -18,6 +18,7 @@ RUN apt-get update \
       make \
       libbz2-dev \
       libc6-dev \
+      libcurl4-openssl-dev \
       liblzma-dev \
       libmagickcore-dev \
       libmagickwand-dev \
