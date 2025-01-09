@@ -5,18 +5,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - ruby: '3.2.4'
-            folder: '3.1.x' # bookworm for linux/amd64
-            tag: '3.2.4@sha256:cf386d39f6a0fd0431a02bd1bb4acfa90673f763137ecb829875f9a3d9c26c5a'
-          - ruby: '3.3.0'
-            folder: '3.1.x' # bookworm
-            tag: '3.3.0-bookworm@sha256:8eb6fb9ea8d522506913b420fbaecace30c15f545fb86a8cf7406179e7efa3fd'
-          - ruby: '3.3.1'
-            folder: '3.1.x' # bookworm for linux/amd64
-            tag: '3.3.1-bookworm@sha256:797d68561a91415e05fd95178f467d86d77bce2d4f17f32683241a687cbd1705'
-          - ruby: '3.4.0'
-            folder: '3.1.x' # bookworm for linux/amd64
-            tag: '3.4.0-preview1-bookworm@sha256:d0bbfb3975620c7810a7dd0da0a16dde84202fc398cface181e5a8f2c2e702bc'
+          - ruby: '3.2.6'
+            folder: '3.x' # bookworm for linux/amd64
+            tag: '3.2.6-bookworm@sha256:9f7f699c7fdd0fb44378ae80f9ac3af15908f5ae74ecb714f25ac4225453a7ea'
+          - ruby: '3.3.6'
+            folder: '3.x' # bookworm for linux/amd64
+            tag: '3.3.6-bookworm@sha256:24a180b1727b169cdfab0acc2b2b70acaa1eca050e5379297eeaf7aa58e8416a'
+          - ruby: '3.4.1'
+            folder: '3.x' # bookworm for linux/amd64
+            tag: '3.4.1-bookworm@sha256:45ca46a37e16d4f0b383ff6f400edc7e096361ac05c91ead86481ecc332e665e'
     container:
       image: docker:git
       env:
